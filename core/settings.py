@@ -138,5 +138,5 @@ EMAIL_PORT = config.get('EMAIL_PORT')
 EMAIL_HOST_USER = config.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config.get('EMAIL_HOST_PASSWORD')
 
-# AUTH_USER_MODEL = 'users.myUser'
+AUTH_USER_MODEL = 'user.myUser'
 LOGIN_REDIRECT_URL = 'index'
