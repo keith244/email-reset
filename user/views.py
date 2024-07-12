@@ -4,7 +4,8 @@ from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
-
+import logging
+logger = logging.getLogger(__name__)
 # Create your views here.
 
 def iregister(request):
@@ -41,23 +42,23 @@ def iregister(request):
     return render (request, 'user/register.html')
 
 def ilogin(request):
-    if request.method ==  'POST':
-        username  = request.POST['username']
+    if request.method == 'POST':
+        username = request.POST['username']
         password = request.POST['password']
 
-        user = authenticate (request, username=username, password = password)
+        user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
-            messages.success( request, f'Welcome {username}!')
-            return redirect ('index')
-        
+            messages.success(request, f'Welcome {username}!')
+            return redirect('index')
         else:
-            if myUser.objects.filter( username=username ).exists():
+            if myUser.objects.filter(username=username).exists():
                 messages.error(request, 'Invalid credentials provided.')
             else:
-                messages.error(request, f'Account with username <strong>{username}</strong> does not exist.Create account.')
-            return render (request, 'user/login.html', {'username':username})
+                print('eeeeeee')
+                messages.error(request, f'Account with username "{username}" does not exist. Please create an account.')
+            return redirect('login')  # Redirect back to login page
     else:
         return render(request, 'user/login.html')
 
