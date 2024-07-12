@@ -54,7 +54,8 @@ def password_reset_confirm(request, token):
 
             if new_password == confirm_password:
                 user = reset_token.user
-                user.password = make_password(new_password)
+                print(user)
+                user.set_password(new_password)
                 user.save()
 
                 reset_token.is_used = True
